@@ -1,0 +1,18 @@
+machine:
+  php:
+    version: 5.6.2
+
+  hosts:
+    snarc.com: 127.0.0.1
+    www.snarc.com: 127.0.0.1
+
+database:
+  post:
+    - sudo -u postgres createuser snarc -d --superuser
+
+dependencies:
+  pre:
+    - sudo cp config/apache/snarc.conf config/apache/snarc-ssl.conf /etc/apache2/sites-enabled/
+    - sudo mkdir -p /etc/apache2/ssl
+    - sudo cp config/apache/ssl/apache.crt config/apache/ssl/apache.key /etc/apache2/ssl/
+    - sudo service apache2 restart

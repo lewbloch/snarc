@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<!--
 Copyright © 2015, Lewis S. Bloch. All rights reserved.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,22 +12,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>S.N.A.R.C. - the Secret Nonexistent Amateur Radio Club</title>
-    </head>
-
-    <body>
-        <?php
-        // put your code here
-        ?>
-        <div>
-            <h1>Welcome to S.N.A.R.C., the Secret Nonexistent Amateur Radio Club.</h1>
-        </div>
-        <div>
-            Check out our exciting projects.
-        </div>
-    </body>
-</html>
+All artifacts authored by Lewis S. Bloch (the "Author") in this project 
+are covered by this license unless specifically marked otherwise.

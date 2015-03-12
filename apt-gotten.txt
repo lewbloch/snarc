@@ -1,0 +1,118 @@
+machine:
+  post:
+    - sudo apt-get install git
+#    - sudo apt-get install apache2
+    - sudo apt-get install ssl-keygen
+    - sudo apt-get install curl
+    - sudo apt-get install postgresql postgresql-doc
+    - sudo apt-get install postgresql-dev-9.4 libpq-dev
+#    - sudo apt-get install php5 php5-mysql
+
+    - sudo apt-get install xclip
+    - sudo apt-get install ark rar unrar unrar-free lrzip p7zip-rar
+
+    - sudo apt-get install mysql-server mysql-client libsql-statement-perl
+    - sudo apt-get install phpmyadmin libmldbm-perl libnet-daemon-perl \
+        mcrypt libmcrypt-dev php5-imagick 
+
+    - sudo apt-get install gcc make g++ gdb g++-multilib gcc-multilib \
+      autoconf automake1.11 libtool flex bison gcc-doc libgcc1-dbg \
+      libgomp1-dbg libitm1-dbg libatomic1-dbg libasan1-dbg liblsan0-dbg \
+      libtsan0-dbg libubsan0-dbg libcilkrts5-dbg libquadmath0-dbg glibc-doc \
+      libstdc++6-4.9-dbg gcc-4.9-locales libstdc++-4.9-doc autoconf-archive \
+      gnu-standards autoconf-doc bison-doc build-essential libtool-doc \
+      gfortran gfortran-4.9
+
+    # for "WARNING: OpenSSL version is too old" and PCRE pcre-config
+    - sudo apt-get install libssl-dev libpcre3-dev
+
+    # for PHP
+#    - sudo apt-get install libxml2-dev libpng-dev libjpeg-dev libcurl4-openssl-dev libbz2-dev
+    - sudo apt-get install libxml2-dev libpng12-dev libjpeg-dev libcurl4-openssl-dev libbz2-dev \
+      libcurl4-doc libcurl3-dbg libidn11-dev libkrb5-dev libldap2-dev librtmp-dev pkg-config \
+      doc-base krb5-doc libgmp10-doc libmpfr-dev \
+      dwww doc-central yelp libmpfr-doc doc-debian dpkg-www antiword tasksel \
+      libcwidget-dev libcwidget-doc ncurses-doc libsigc++-2.0-doc
+
+dependencies:
+  pre:
+    - curl -sS https://getcomposer.org/installer | php
+#    - ./composer.phar self-update
+
+###
+# Apache
+# see https://www.rodneybeede.com/Building_Apache_2_4_for_Linux_with_mod_ssl.html
+
+pushd Downloads/apache/
+
+# httpd
+tar -xzf httpd-2.4.12.tar.gz
+
+# apr and apr-util
+wget http://mirrors.ibiblio.org/apache//apr/apr-1.5.1.tar.gz
+wget https://www.apache.org/dist/apr/apr-1.5.1.tar.gz.md5
+md5sum --check apr-1.5.1.tar.gz.md5
+
+wget http://mirrors.ibiblio.org/apache//apr/apr-util-1.5.4.tar.gz
+wget https://www.apache.org/dist/apr/apr-util-1.5.4.tar.gz.md5
+md5sum --check apr-util-1.5.4.tar.gz.md5
+
+tar -xzf apr-1.5.1.tar.gz
+mv apr-1.5.1 httpd-2.4.12/srclib/apr
+
+tar -xzf apr-util-1.5.4.tar.gz
+mv apr-util-1.5.4 httpd-2.4.12/srclib/apr-util
+
+# Build Apache
+pushd httpd-2.4.12
+
+./configure --enable-so --with-included-apr --sbindir=/usr/local/apache2/sbin \
+  --with-crypto --enable-ssl=shared --enable-mods-shared=all --enable-intl \
+  --enable-proxy --enable-imagemap --enable-userdir --enable-rewrite --enable-zip \
+  --enable-authz-dbd --enable-session-dbd --enable-session-crypto --enable-negotiation \
+  --with-mysql --with-pgsql=/usr/lib/postgresql/9.4 --enable-cgi \
+  --enable-mpm-event --enable-mpm-prefork --enable-mpm-worker \
+  --enable-suexec
+
+# --enable-http
+
+make
+sudo make install
+
+popd
+popd
+
+#sudo chown -R root:root /usr/local/apache2/
+sudo chown -R lewie:lewie /usr/local/apache2/
+sudo chmod -R go-rwx /usr/local/apache2/
+sudo chmod -R a-w /usr/local/apache2/
+sudo chmod o+x /usr/local/apache2/
+sudo chmod o+x /usr/local/apache2/htdocs/
+sudo chmod o+x /usr/local/apache2/cgi-bin/
+sudo chmod -R o+r /usr/local/apache2/htdocs/
+sudo chmod -R u+w /usr/local/apache2/conf/ /usr/local/apache2/logs/
+
+###
+# PHP
+pushd php
+
+wget http://us1.php.net/get/php-5.6.6.tar.gz/from/this/mirror -O php-5.6.6.tar.gz
+md5sum --check php-5.6.6.tar.gz
+tar -xzf php-5.6.6.tar.gz
+
+pushd php-5.6.6
+./configure --prefix=/usr/local/php5.6 --with-apxs2=/usr/local/apache2/bin/apxs \
+  --with-mysql --with-pgsql=/usr/lib/postgresql/9.4 --with-pcre-regex --with-curl \
+  --with-zlib --with-bz2 --enable-zip \
+  --with-gd --with-jpeg-dir --with-png-dir --with-openssl --with-imap-ssl \
+  --enable-calendar --enable-exif --enable-short-tags
+make
+make test
+sudo make install
+
+popd
+popd
+
+sudo update-alternatives
+
+###

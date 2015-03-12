@@ -22,14 +22,20 @@ limitations under the License.
     </head>
 
     <body>
-        <?php
-        // put your code here
-        ?>
-        <div>
-            <h1>Welcome to S.N.A.R.C., the Secret Nonexistent Amateur Radio Club.</h1>
-        </div>
-        <div>
-            Check out our exciting projects.
-        </div>
+      <?php
+      // put your code here
+      ?>
+
+      <div>
+        <h1>Welcome to S.N.A.R.C., the Secret Nonexistent Amateur Radio Club.</h1>
+      </div>
+
+      <div>
+        <p>Check out our exciting projects.</p>
+        <ul>
+          <li><a href="#MaraudersMap" >Marauder's Map</a></li>
+          <li><a href="<%= view.ProfilePage %>" >Manage Profile</a></li>
+        </ul>
+      </div>
     </body>
 </html>

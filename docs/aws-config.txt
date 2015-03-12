@@ -1,0 +1,4 @@
+#
+ssh -i .ssh/snarker.pem ubuntu@ec2-52-11-36-207.us-west-2.compute.amazonaws.com
+#from 173-164-137-214-sfba.hfc.comcastbusiness.net
+#to ubuntu@ip-172-31-30-248

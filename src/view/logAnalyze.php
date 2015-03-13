@@ -21,10 +21,6 @@ limitations under the License.
   </head>
 
   <body>
-    <?php
-    // put your code here
-    ?>
-
     <form id='logAnalyzeForm' title="S.N.A.R.C. log analysis page" method='POST'
           enctype="application/x-www-form-urlencoded"
           action='/view/logAnalyze.php' >
@@ -34,8 +30,20 @@ limitations under the License.
       </div>
 
       <div>
-        <?= file_get_contents("/var/log/apache2/access-snarc.log") ?>
+        <ul>
+          <?php
+            $fh = fopen("/var/log/apache2/access-snarc.log", "r");
+            while (($line = fgets($fh)) !== false)
+            {
+          ?>
+              <li><?= $line ?></li>
+          <?php
+            }
+            fclose($fh);
+          ?>
+        </ul>
       </div>
+
     </form>
   </body>
 </html>

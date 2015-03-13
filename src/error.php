@@ -17,8 +17,8 @@ limitations under the License.
 -->
 <html>
   <head>
-      <meta charset="UTF-8" />
-      <title>S.N.A.R.C. - the Secret Nonexistent Amateur Radio Club</title>
+    <meta charset="UTF-8" />
+    <title>S.N.A.R.C. - the Secret Nonexistent Amateur Radio Club</title>
   </head>
 
   <body>
@@ -26,27 +26,19 @@ limitations under the License.
     // put your code here
     ?>
 
-    <form id='indexForm' title="S.N.A.R.C. home page" method='POST'
+    <form id='errorForm' title="S.N.A.R.C. error page" method='POST'
           enctype="application/x-www-form-urlencoded"
-          action='index.php' >
+          >
+      <div>
+        <h1>S.N.A.R.C. snark! Dangerous area.</h1>
+      </div>
 
       <div>
-        <h1>Welcome to S.N.A.R.C., the Secret Nonexistent Amateur Radio Club.</h1>
+        <p>
+          You've been snarked. It's our fault entirely, and we apologize.
+        </p>
+        <input type="submit" id="submit" name="submit" value="continue" formaction="index.php" />
       </div>
-
-      <div>
-        <p>Check out our exciting projects.</p>
-        <ul>
-          <li><a href="#MaraudersMap" >Marauder's Map</a></li>
-          <li><a href="/view/profileManagement.php" >Manage Profile</a></li>
-        </ul>
-      </div>
-
-      <div id="navigation" >
-        <input type="submit" id="navhome" name="nav" value="home" />
-        <input type="submit" id="naverror" name="nav" value="error" formaction="error.php" />
-      </div>
-
     </form>
   </body>
 </html>

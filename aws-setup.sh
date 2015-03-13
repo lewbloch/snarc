@@ -7,6 +7,7 @@ sudo apt-get install mysql-server mysql-client libsql-statement-perl
 sudo apt-get install php5-mysql libapache2-mod-auth-mysql
 sudo apt-get install php5-common php5-curl php5-dbg php5-xmlrpc php5-xsl php5-adodb gdb-doc gdbserver
 
+sudo a2enmod ssl
 sudo service apache2 restart
 
 sudo apt-get install emacs24 emacs24-el

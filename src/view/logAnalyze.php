@@ -16,8 +16,8 @@ limitations under the License.
 -->
 <html>
   <head>
-      <meta charset="UTF-8" />
-      <title>S.N.A.R.C. - the Secret Nonexistent Amateur Radio Club</title>
+    <meta charset="UTF-8" />
+    <title>S.N.A.R.C. - the Secret Nonexistent Amateur Radio Club</title>
   </head>
 
   <body>
@@ -25,23 +25,65 @@ limitations under the License.
           enctype="application/x-www-form-urlencoded"
           action='/view/logAnalyze.php' >
 
-      <div id="navigation" >
-        <input type="submit" id="navhome" name="nav" value="home" formaction="/index.php" />
-      </div>
-
-      <div>
+      <div style="font-family: monospace;">
+        <p>
         <ul>
+          <li style="font-weight: bold; ">Access<br />Origin</li>
+        </ul>
+        </p>
+        <ul style="max-height: 600px; max-width: 66%; overflow: scroll;">
           <?php
             $fh = fopen("/var/log/apache2/access-snarc.log", "r");
             while (($line = fgets($fh)) !== false)
             {
           ?>
-              <li><?= $line ?></li>
+            <li style="">
+              <?= $line ?><br />
+              <?php
+                $MARKER = '[client ';
+                $ENDER = ']';
+                $ippos = strpos($line, $MARKER);
+                if ($ippos >= 0)
+                {
+                  $ippos += strlen($MARKER);
+                  $ipend = strpos($line, $ENDER, $ippos);
+                }
+                else
+                {
+                  $ipend = $ippos;
+                }
+
+                if ($ipend <= $ippos)
+                {
+                  print("No client");
+                }
+                else
+                {
+                  $client = substr($line, $ippos, $ipend - $ippos);
+                  $info = ((substr($client, 0, 2) == "::") ? false : geoip_record_by_name($client));
+                  if (!$info)
+                  {
+                    print "no info";
+                  }
+                  else
+                  {
+                    print $info['city'] . ', ' . $info['region'] . ' ' . $info['postal_code'] . ' ' . $info['country_name'];
+                    print " &nbsp; area code " . $info['area_code'] . "<br />";
+                    print "geo (" . $info['latitude'] . ", " . $info['longitude'] . ")";
+                  }
+                }
+              ?>
+              <br />&nbsp;
+            </li>
           <?php
             }
             fclose($fh);
           ?>
         </ul>
+      </div>
+
+      <div id="navigation" >
+        <input type="submit" id="navhome" name="nav" value="home" formaction="/index.php" />
       </div>
 
     </form>

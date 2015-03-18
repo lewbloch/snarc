@@ -34,10 +34,16 @@ limitations under the License.
         <h1>Welcome to S.N.A.R.C., the Secret Nonexistent Amateur Radio Club.</h1>
       </div>
 
-      <div>
-        <p>Check out our exciting projects.</p>
+      <div id="mainMenu">
+        <h2>Snarky projects.</h2>
         <ul>
-          <li><a href="#MaraudersMap" >Marauder's Map</a></li>
+          <li>
+            <a href="/view/maraudersMap.php" >Marauder's Map</a>
+          </li>
+        </ul>
+
+        <h2>Administration</h2>
+        <ul>
           <li><a href="/view/profileManagement.php" >Manage Profile</a></li>
         </ul>
       </div>

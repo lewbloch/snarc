@@ -6,7 +6,12 @@ machine:
     - sudo apt-get install curl
     - sudo apt-get install postgresql postgresql-doc
     - sudo apt-get install postgresql-dev-9.4 libpq-dev
-#    - sudo apt-get install php5 php5-mysql
+#    - sudo apt-get install php5 php5-dev php5-mysql
+
+# Setting up php5-dev (5.5.12+dfsg-2ubuntu4.2) ...
+# update-alternatives: error: alternative php-config can't be master: it is a slave of php
+# dpkg: error processing package php5-dev (--configure):
+#  subprocess installed post-installation script returned error exit status 2
 
     - sudo apt-get install xclip
     - sudo apt-get install ark rar unrar unrar-free lrzip p7zip-rar

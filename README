@@ -22,7 +22,7 @@ S.N.A.R.C. is the online and on-air presence of certain licensed
 amateur radio operators. We serve as a clearinghouse for outrageous
 ideas, exciting projects, and ruthless justice.
 
-This is a LAPP project - Linux, Apache, Postgres, PHP.
+This is a LA[MP]P project - Linux, Apache, MySQL or Postgres, PHP.
 Testing is paramount.
 
 Project guidelines:
